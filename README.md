@@ -109,7 +109,7 @@ make clean
  │ ├── manage.py
  │ ├── requirements.txt
  │ └── myproject/
- │    ├── \_\_init\_\_.py
+ │    ├── __init__.py
  │    ├── settings.py
  │    ├── urls.py
  │    └── wsgi.py
