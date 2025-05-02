@@ -1,87 +1,32 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
+name: CI/CD Pipeline
 
-# Django
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-media/
-staticfiles/
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-# Kubernetes
-.kube/
-kubeconfig
-kind-config
-kubectl-config
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f app/requirements.txt ]; then pip install -r app/requirements.txt; fi
+      - name: Run tests
+        run: |
+          cd app && python manage.py test
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-.direnv/
-
-# Nix
-result
-result-*
-.nixpkgs
-
-# IDE and editors
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-.project
-.classpath
-.settings/
-*.sublime-workspace
-*.sublime-project
-
-# Mac OS
-.DS_Store
-.AppleDouble
-.LSOverride
-._*
-
-# Docker
-.docker/
-
-# Tilt
-.tilt-cache/
-tilt-settings.json
-
-# Logs and temp files
-logs/
-tmp/
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Misc
-*.backup
-*.tmp
-.history/
+  deploy-preview:
+    if: github.event_name == 'pull_request'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy preview environment
+        run: echo "Would deploy preview environment for PR #${{ github.event.pull_request.number }}"
