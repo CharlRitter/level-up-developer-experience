@@ -81,6 +81,7 @@ make clean
 
 ## Repository Structure
 
+```
 /level-up-developer-experience
  ├── README.md
  ├── Makefile
@@ -115,6 +116,7 @@ make clean
  └── docs/
  │ └── talk_outline.md
  │ └── talk_slides.md
+```
 
 ## Why Containerized, Declarative Approach
 
