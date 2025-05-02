@@ -17,24 +17,6 @@ The project deploys a Django application configured with a Postgres backend and 
 - [Scaf](https://github.com/sixfeetup/scaf/) - For project bootstrapping
 - Docker
 
-### Installing Prerequisites
-
-```bash
-# Install Docker Desktop, Kind, Kubectl, Tilt, Direnv, and k9s
-brew install --cask docker
-brew install kind kubectl tilt direnv k9s
-
-# Install Nix package manager
-sh <(curl -L https://nixos.org/nix/install)
-
-# Set up direnv in your shell (if using zsh)
-echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
-source ~/.zshrc
-
-# Install Scaf (For project bootstrapping only)
-pip install scaf
-```
-
 ## Using Scaf for New Projects
 
 ```bash
@@ -55,6 +37,7 @@ cd my-new-project
 ```bash
 git clone https://github.com/CharlRitter/level-up-developer-experience.git
 cd level-up-developer-experience
+make setup
 direnv allow
 make up
 ```
