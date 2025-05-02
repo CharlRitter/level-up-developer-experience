@@ -1,11 +1,11 @@
 
 # Level Up Your Developer Experience
 
-This repository demonstrates how to quickly bootstrap a full development environment using Kubernetes and a set of modern tools, including Scaf, Kind, Tilt, Direnv, and Nix. It accompanies my talk presenting Roché Compaan's _"Level Up Your Developer Experience with Kubernetes"_ talk, which was presented at PyConZA 2024.
+This repository demonstrates how to bootstrap a full development environment quickly using Kubernetes and a set of modern tools, including Scaf, Kind, Tilt, Direnv, and Nix. It accompanies my talk presenting Roché Compaan's _"Level Up Your Developer Experience with Kubernetes"_ talk, which was presented at PyConZA 2024.
 
 ## Overview
 
-The project deploys a Django application configured with a Postgres backend and a Redis cache. The Kubernetes manifests are organized with Kustomize overlays for different environments (development, staging, production). The demo shows how to obtain a reproducible, containerized development environment with a single command.
+The project deploys a Django application configured with a Postgres backend and a Redis cache. The Kubernetes manifests are organised with Kustomize overlays for different environments (development, staging, production). The demo shows how to obtain a reproducible, containerised development environment with a single command.
 
 ## Prerequisites
 
@@ -61,7 +61,7 @@ make up
 
 ## Working with the Environment
 
-Exploring with k9s
+Exploring with K9S
 
 After starting the environment:
 ```bash
@@ -118,11 +118,11 @@ make clean
  │ └── talk_slides.md
 ```
 
-## Why Containerized, Declarative Approach
+## Why Containerised, Declarative Approach
 
-Our approach provides several benefits for developer experience:
+Our approach provides several benefits for the developer experience:
 
-- **Consistency and Reproducibility**: Containers ensure uniform environments and immutable artifacts across all stages
+- **Consistency and Reproducibility**: Containers ensure uniform environments and immutable artefacts across all stages
 - **Declarative Infrastructure and Self-Healing**: Define desired state in YAML manifests and let Kubernetes maintain it
 - **Scalability and Efficiency**: Easily adjust resources and scale applications as needed
 - **Improved Collaboration**: Infrastructure as code enables version control and peer review of configurations
@@ -155,7 +155,7 @@ To explore the CI/CD configuration, see [.github/workflows/preview-environment.y
 - Consistent Development: Every developer gets the same environment
 - Quick Onboarding: New team members can get up and running in minutes
 - Environment Parity: Development setup closely matches production
-- Live Updates: Changes immediately reflected in the running application
+- Live Updates: Changes are immediately reflected in the running application
 
 ## Supporting documents
 
