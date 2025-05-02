@@ -1,0 +1,87 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# Kubernetes
+.kube/
+kubeconfig
+kind-config
+kubectl-config
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.direnv/
+
+# Nix
+result
+result-*
+.nixpkgs
+
+# IDE and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# Mac OS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Docker
+.docker/
+
+# Tilt
+.tilt-cache/
+tilt-settings.json
+
+# Logs and temp files
+logs/
+tmp/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Misc
+*.backup
+*.tmp
+.history/
