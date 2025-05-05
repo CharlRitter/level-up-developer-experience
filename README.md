@@ -1,4 +1,3 @@
-
 # Level Up Your Developer Experience
 
 This repository demonstrates how to bootstrap a full development environment quickly using Kubernetes and a set of modern tools, including Scaf, Kind, Tilt, Direnv, and Nix. It accompanies my talk presenting Roché Compaan's _"Level Up Your Developer Experience with Kubernetes"_ talk, which was presented at PyConZA 2024.
@@ -17,6 +16,15 @@ The project deploys a Django application configured with a Postgres backend and 
 - [Scaf](https://github.com/sixfeetup/scaf/) - For project bootstrapping
 - Docker
 
+## Quick Start
+
+```bash
+git clone https://github.com/CharlRitter/level-up-developer-experience.git
+cd level-up-developer-experience
+make setup
+make up
+```
+
 ## Using Scaf for New Projects
 
 ```bash
@@ -29,17 +37,7 @@ scaf init my-new-project --template template-name
 # Navigate to the new project
 cd my-new-project
 
-# Follow the README instructions
-```
-
-## Quick Start
-
-```bash
-git clone https://github.com/CharlRitter/level-up-developer-experience.git
-cd level-up-developer-experience
-make setup
-direnv allow
-make up
+# Follow the README Quick Start instructions
 ```
 
 ## Working with the Environment
