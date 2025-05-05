@@ -1,16 +1,44 @@
 .PHONY: up down clean logs setup
 
 setup:
-		@echo "Installing Docker Desktop, Kind, Kubectl, Tilt, Direnv, and k9s..."
-		brew install --cask docker
-		brew install kind kubectl tilt direnv k9s
+		@echo "Setting up development environment..."
 
-		@echo "Installing Nix package manager..."
-		sh <(curl -L https://nixos.org/nix/install)
+		@echo "Checking and installing required tools..."
+		@if ! command -v docker &> /dev/null; then \
+				echo "Installing Docker Desktop..."; \
+				brew install --cask docker || true; \
+		else \
+				echo "Docker already installed"; \
+		fi
 
-		@echo "Set up direnv in your shell (if using zsh)..."
-		echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
-		source ~/.zshrc
+		@for tool in kind kubectl tilt direnv k9s; do \
+				if ! command -v $$tool &> /dev/null; then \
+						echo "Installing $$tool..."; \
+						brew install $$tool; \
+				else \
+						echo "$$tool already installed"; \
+				fi \
+		done
+
+		@if ! command -v nix &> /dev/null; then \
+				echo "Installing Nix package manager..."; \
+				curl -L https://nixos.org/nix/install | sh; \
+		else \
+				echo "Nix already installed"; \
+		fi
+
+		@echo "Setting up direnv in your shell..."
+		@if [ -f "$$HOME/.zshrc" ]; then \
+				grep -q "direnv hook zsh" $$HOME/.zshrc || echo 'eval "$$(direnv hook zsh)"' >> $$HOME/.zshrc; \
+				echo "Added direnv to zsh. Please restart your terminal or run 'source ~/.zshrc'"; \
+		else \
+				echo "You're not using zsh. Please manually add direnv hook to your shell."; \
+				echo "For bash: 'echo \'eval \"$(direnv hook bash)\"\' >> ~/.bashrc'"; \
+		fi
+
+		@direnv allow
+
+		@echo "Setup complete!"
 
 up:
 		@echo "Creating Kind cluster..."
