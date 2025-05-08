@@ -61,16 +61,28 @@ jobs:
 
           curl -fsSL https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/install.sh | bash
 
-      - name: Deploy preview environment
+      - name: Deploy to cloud Kubernetes
         run: |
-          # Create a unique name for this preview environment
-          export PREVIEW_ENV="preview-pr-${{ github.event.pull_request.number }}"
+          # Authenticate with cloud provider (GCP, AWS, Azure)
+          # gcloud auth activate-service-account --key-file=${{ secrets.GCP_KEY }}
+          # gcloud container clusters get-credentials preview-cluster --zone us-central1-a
 
-          # Create Kubernetes cluster
-          kind create cluster --name $PREVIEW_ENV
+          # Deploy using kubectl or Helm
+          kubectl apply -k overlays/preview
 
-          # Deploy application (using Tilt headless mode)
-          tilt ci --file=Tiltfile
+          # Get the public URL
+          PREVIEW_URL=$(kubectl get ingress -n preview-${{ github.event.pull_request.number }} -o jsonpath='{.items[0].status.loadBalancer.ingress[0].ip}')
+          echo "Preview URL: http://$PREVIEW_URL"
+          echo "::set-output name=preview_url::http://$PREVIEW_URL"
 
-          echo "Preview environment deployed for PR #${{ github.event.pull_request.number }}"
-          echo "Access URL: http://localhost:8000"
+      - name: Comment on PR
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `✅ Preview environment deployed! Access it at: ${{ steps.deploy.outputs.preview_url }}`
+            })
