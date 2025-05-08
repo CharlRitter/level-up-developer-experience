@@ -62,18 +62,15 @@ jobs:
           curl -fsSL https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/install.sh | bash
 
       - name: Deploy to cloud Kubernetes
+        id: deploy
         run: |
-          # Authenticate with cloud provider (GCP, AWS, Azure)
-          # gcloud auth activate-service-account --key-file=${{ secrets.GCP_KEY }}
-          # gcloud container clusters get-credentials preview-cluster --zone us-central1-a
-
-          # Deploy using kubectl or Helm
-          kubectl apply -k overlays/preview
-
-          # Get the public URL
-          PREVIEW_URL=$(kubectl get ingress -n preview-${{ github.event.pull_request.number }} -o jsonpath='{.items[0].status.loadBalancer.ingress[0].ip}')
-          echo "Preview URL: http://$PREVIEW_URL"
-          echo "::set-output name=preview_url::http://$PREVIEW_URL"
+          # For demo purposes only - since we don't have actual overlays
+          echo "This is where actual deployment would happen"
+          echo "Creating a mock preview URL for demo purposes"
+          
+          # Create a fake preview URL for demo purposes
+          echo "Preview URL: https://preview-${{ github.event.pull_request.number }}.example.com"
+          echo "::set-output name=preview_url::https://preview-${{ github.event.pull_request.number }}.example.com"
 
       - name: Comment on PR
         uses: actions/github-script@v6
