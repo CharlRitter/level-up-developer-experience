@@ -66,7 +66,7 @@ jobs:
 
           curl -fsSL https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/install.sh | bash
 
-      - name: Deploy to cloud Kubernetes
+      - name: Deploy to test environment
         id: deploy
         run: |
           # For demo purposes only - since we don't have actual overlays
