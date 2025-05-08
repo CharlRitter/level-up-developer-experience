@@ -30,13 +30,16 @@ setup:
 		@echo "Setting up direnv in your shell..."
 		@if [ -f "$$HOME/.zshrc" ]; then \
 				grep -q "direnv hook zsh" $$HOME/.zshrc || echo 'eval "$$(direnv hook zsh)"' >> $$HOME/.zshrc; \
-				echo "Added direnv to zsh. Please restart your terminal or run 'source ~/.zshrc'"; \
+				echo "Added direnv to zsh."; \
+				@direnv allow; \
+		elif [ -f "$$HOME/.bashrc" ]; then \
+				grep -q "direnv hook bash" $$HOME/.bashrc || echo 'eval "$$(direnv hook bash)"' >> $$HOME/.bashrc; \
+				echo "Added direnv to bash."; \
+				@direnv allow; \
 		else \
-				echo "You're not using zsh. Please manually add direnv hook to your shell."; \
-				echo "For bash: 'echo \'eval \"$(direnv hook bash)\"\' >> ~/.bashrc'"; \
-		fi
-
-		@direnv allow
+				echo "You're not using zsh or bash. Please manually add direnv hook to your shell."; \
+				echo "For fish: echo 'direnv hook fish | source' and run 'direnv allow"; \
+		fi || true
 
 		@echo "Setup complete!"
 
